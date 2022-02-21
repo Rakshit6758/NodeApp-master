@@ -10,7 +10,7 @@ node {
     stage('Build image') {
         /* This builds the actual image */
 
-        app = docker.build("rakshit/node-app")
+        app = docker.build("rakshit/nodeapp")
     }
 
     stage('Test image') {
