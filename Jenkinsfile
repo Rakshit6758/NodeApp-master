@@ -20,5 +20,11 @@ node {
         }
     }
 
+    stage('Run Conatiner') {
+        
+        app = docker.run("rakshit/nodeapp")
+
+    }
+
     
 }
