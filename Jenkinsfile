@@ -22,11 +22,10 @@ pipeline{
 			}
 		}
 
-		stage('Push') {
+		stage('Run') {
 
 			steps {
-                sh 'docker tag nodeapp rakshit/nodeapp'
-				sh 'docker image push rakshit/nodeapp:latest'
+				sh 'docker run rakshit/nodeapp'
 			}
 		}
 	}
