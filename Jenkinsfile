@@ -1,23 +1,35 @@
-node {
-    def app
+pipeline{
 
-    stage('Clone repository') {
-        /* Cloning the Repository to our Workspace */
+	agent any
 
-        checkout scm
-    }
+	environment {
+		DOCKERHUB_CREDENTIALS=credentials('docker-hub-credentials')
+	}
 
-    stage('Build image') {
-        /* This builds the actual image */
+	stages {
 
-        app = docker.build("rakshit/nodeapp")
-    }
+		stage('Build') {
 
-    stage('Test image') {
-        
-        app.inside {
-            echo "Tests passed"
-        }
-    }
-    
+			steps {
+				sh 'docker build -t rakshit/nodeapp:latest .'
+			}
+		}
+
+		stage('Login') {
+
+			steps {
+				sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
+			}
+		}
+
+		stage('Push') {
+
+			steps {
+				sh 'docker push rakshit/nodeapp:latest'
+			}
+		}
+	}
+
+	
+
 }
