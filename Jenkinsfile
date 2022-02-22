@@ -25,7 +25,7 @@ pipeline{
 		stage('Push') {
 
 			steps {
-				sh 'docker push rakshit/nodeapp:latest'
+				sh 'docker image push rakshit/nodeapp:latest'
 			}
 		}
 	}
